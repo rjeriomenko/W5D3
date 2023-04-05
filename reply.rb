@@ -1,4 +1,5 @@
 require_relative "boarddbconnection.rb"
+require_relative "user"
 
 class Reply
     attr_accessor :body, :question_id, :user_id, :reply_id
@@ -46,5 +47,54 @@ class Reply
         SQL
         data.map {|datum| Reply.new(datum)}
     end
+
+    def author
+        data = BoardDBConnection.instance.execute(<<-SQL, user_id)
+        SELECT
+            *
+        FROM
+            users
+        WHERE
+            id = ?
+        SQL
+        data.map {|datum| User.new(datum)}
+    end
+
+    def question
+        data = BoardDBConnection.instance.execute(<<-SQL, question_id)
+        SELECT
+            *
+        FROM
+            questions
+        WHERE
+            id = ?
+        SQL
+        data.map {|datum| Question.new(datum)}
+    end
+    
+    def parent_reply
+        data = BoardDBConnection.instance.execute(<<-SQL, reply_id)
+        SELECT
+            *
+        FROM
+            replies
+        WHERE
+            id = ?
+        SQL
+        data.map {|datum| Reply.new(datum)}
+    end
+
+    def child_replies
+        data = BoardDBConnection.instance.execute(<<-SQL, id)
+        SELECT
+            *
+        FROM
+            replies
+        WHERE
+            reply_id = ?
+        SQL
+        data.map {|datum| Reply.new(datum)}
+    end
+
 
 end

@@ -1,7 +1,9 @@
 require_relative "boarddbconnection.rb"
+require_relative "user"
+require_relative "reply"
 
 class Question
-    attr_accessor :title, :user_id, :user_id
+    attr_accessor :title, :user_id, :body
     attr_reader :id
     
     def self.all
@@ -32,6 +34,25 @@ class Question
             user_id = ?
         SQL
 
-        data.map {|datum| Reply.new(datum)}
+        data.map {|datum| Question.new(datum)}
     end
+
+    def author
+        data = BoardDBConnection.instance.execute(<<-SQL, user_id)
+        SELECT
+            *
+        FROM
+            users
+        WHERE
+            id = ?
+        SQL
+        data.map {|datum| User.new(datum)}
+    end
+
+    def replies
+        Reply.find_by_question_id(id)
+    end   
+
+
+        
 end

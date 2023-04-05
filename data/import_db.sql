@@ -63,18 +63,22 @@ VALUES
     ('sdf','sdf'),
     ('John', 'Doe'),
     ('Spencer', 'Gigachad'),
-    ('Ace', 'OfSpades');
+    ('Ace', 'OfSpades'),
+    ('Kush', 'Patel');
 
 INSERT INTO 
     questions (title,body,user_id)
 VALUES  
-    ('SQL_HELP!!!!', 'TEACH ME SqL!!!!!', 1);
+    ('SQL_HELP!!!!', 'TEACH ME SqL!!!!!', 1),
+    ('PRY NO WORK', 'SPENCER PLEASE', 1);
     
 INSERT INTO 
     replies (body,question_id,user_id,reply_id)
 VALUES
     ('no',1,3,NULL),
-    ('spencer!!',1,4,1);
+    ('spencer!!',1,4,1),
+    ('no',2,3,NULL),
+    ('you''re getting a promotion',1,5,1);
 
 INSERT INTO 
     question_follows (question_id, user_id)

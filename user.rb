@@ -3,6 +3,8 @@
 # lname TEXT NOT NULL
 
 require_relative "boarddbconnection.rb"
+require_relative "question"
+require_relative "reply"
 
 class User
     attr_accessor :fname, :lname
@@ -39,4 +41,11 @@ class User
         data.map {|datum| User.new(datum)}
     end
 
+    def authored_questions
+        Question.find_by_author_id(@id)
+    end
+
+    def authored_replies
+        Reply.find_by_user_id(@id)
+    end
 end

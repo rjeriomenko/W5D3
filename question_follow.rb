@@ -26,6 +26,3 @@ class QuestionFollow
     end
 
 end
-
-p QuestionFollow.all
-p QuestionFollow.find_by_id(1)

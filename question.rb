@@ -22,4 +22,16 @@ class Question
         self.all[id + -1]
     end
 
+    def self.find_by_author_id(author_id)
+        data = BoardDBConnection.instance.execute(<<-SQL, author_id)
+        SELECT
+            *
+        FROM
+            questions
+        WHERE
+            user_id = ?
+        SQL
+
+        data.map {|datum| Reply.new(datum)}
+    end
 end

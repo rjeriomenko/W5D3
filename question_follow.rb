@@ -1,7 +1,8 @@
 # id INTEGER PRIMARY KEY,
 # question_id INTEGER NOT NULL,
 # user_id INTEGER NOT NULL,
-
+require_relative "user.rb"
+require_relative "question"
 require_relative "boarddbconnection.rb"
 
 class QuestionFollow
@@ -23,6 +24,34 @@ class QuestionFollow
     
     def self.find_by_id(id)
         self.all[id + -1]
+    end
+
+    def self.followers_for_question_id(question_id)
+        data = BoardDBConnection.instance.execute(<<-SQL, question_id)
+            SELECT 
+                users.id, fname, lname 
+            FROM 
+                users   
+                JOIN
+                    question_follows ON question_follows.user_id = users.id
+            WHERE
+                question_id = ?;
+        SQL
+        data.map { |datum| User.new(datum) }
+    end
+
+    def self.followed_questions_for_user_id(user_id)
+        data = BoardDBConnection.instance.execute(<<-SQL, user_id)
+            SELECT 
+                title, body, questions.user_id, questions.id
+            FROM 
+                questions   
+                JOIN
+                    question_follows ON question_follows.question_id = questions.id
+            WHERE
+                question_follows.user_id = ?;
+        SQL
+        data.map { |datum| Question.new(datum) }
     end
 
 end

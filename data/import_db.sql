@@ -76,3 +76,13 @@ VALUES
     ('no',1,3,NULL),
     ('spencer!!',1,4,1);
 
+INSERT INTO 
+    question_follows (question_id, user_id)
+VALUES
+    (1, 1);
+
+INSERT INTO 
+    question_likes (question_id, user_id)
+VALUES
+    (1, 2),
+    (1, 4);

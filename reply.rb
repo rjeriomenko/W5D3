@@ -24,7 +24,3 @@ class Reply
     end
 
 end
-
-p Reply.all
-p Reply.find_by_id(1)
-p Reply.find_by_id(2)

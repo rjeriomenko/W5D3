@@ -61,4 +61,18 @@ INSERT INTO
     users (fname,lname) 
 VALUES 
     ('sdf','sdf'),
-    ('John', 'Doe');
+    ('John', 'Doe'),
+    ('Spencer', 'Gigachad'),
+    ('Ace', 'OfSpades');
+
+INSERT INTO 
+    questions (title,body,user_id)
+VALUES  
+    ('SQL_HELP!!!!', 'TEACH ME SqL!!!!!', 1);
+    
+INSERT INTO 
+    replies (body,question_id,user_id,reply_id)
+VALUES
+    ('no',1,3,NULL),
+    ('spencer!!',1,4,1);
+

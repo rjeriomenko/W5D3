@@ -1,20 +1,21 @@
 require_relative "boarddbconnection.rb"
 
-class User
-    attr_accessor :fname, :lname
+class Question
+    attr_accessor :title, :user_id, :user_id
     attr_reader :id
-
+    
     def self.all
         data = BoardDBConnection.instance.execute(<<-SQL)
-            SELECT * FROM users;
+            SELECT * FROM questions;
         SQL
-        data.map {|datum| User.new(datum)}
+        data.map {|datum| Question.new(datum)}
     end
 
     def initialize(options)
         @id = options['id']
-        @fname = options['fname']
-        @lname = options['lname']
+        @title = options['title']
+        @body = options['body']
+        @user_id = options['user_id']
     end
     
     def self.find_by_id(id)
